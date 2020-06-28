@@ -4,7 +4,7 @@ import User from '../models/User'
 class contactsController {
   async store(req, res) {
     const { user_id } = req.params
-    const { number } = re.body
+    const { number } = req.body
 
     const user = await User.findByPk(user_id)
 

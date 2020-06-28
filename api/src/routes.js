@@ -8,6 +8,7 @@ routes.get('/', (req, res) => res.json({ api: 'backend funcionando' }))
 
 routes.get('/users', UsersController.index)
 routes.post('/users/save', UsersController.store)
+routes.delete('/users/:user_id/destroy', UsersController.delete)
 // routes.post('/users/:id', UsersController.show)
 
 export default routes

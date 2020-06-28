@@ -19,8 +19,10 @@ class User extends Model {
 
     this.addHook('beforeSave', async (user) => {
       if (user.password_hash) {
-        user.password = bcrypt.hash(user.password, 8)
+        user.password = await bcrypt.hash(user.password_hash, 8)
       }
+
+      return this
     })
   }
 
