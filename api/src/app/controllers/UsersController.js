@@ -2,7 +2,19 @@ import User from '../models/User'
 
 class UsersController {
   async index(req, res) {
-    const users = await User.findAll()
+    const users = await User.findAll({
+      include: [
+        {
+          association: 'contacts',
+          attributes: ['number'],
+        },
+        {
+          association: 'roles',
+          attributes: ['name', 'description'],
+          through: { attributes: [] },
+        },
+      ],
+    })
 
     if (users.length === 0) return res.status(400).json({ error: 'Users not found.' })
 

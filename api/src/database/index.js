@@ -3,8 +3,9 @@ import dbConfig from '../config/database'
 
 import User from '../app/models/User'
 import Contact from '../app/models/Contact'
+import Role from '../app/models/Role'
 
-const models = [User, Contact]
+const models = [User, Contact, Role]
 
 class Database {
   constructor() {

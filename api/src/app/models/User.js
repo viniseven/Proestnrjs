@@ -26,11 +26,20 @@ class User extends Model {
     })
   }
 
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash)
+  }
+
   // has -> procura a coluna dentro de quem vc referenciou (as: contact)
   // belong -> procura a coluna dentro de si mesmo ()
 
   static associate(models) {
     this.hasMany(models.Contact, { foreignKey: 'user_id', as: 'contacts' })
+    this.belongsToMany(models.Role, {
+      foreignKey: 'user_id',
+      through: 'user_role',
+      as: 'roles',
+    })
   }
 }
 
