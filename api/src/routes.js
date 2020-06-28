@@ -1,11 +1,13 @@
 import { Router } from 'express'
-import TicketsController from './app/controllers/TicketsController'
+
+import UsersController from './app/controllers/UsersController'
 
 const routes = new Router()
 
 routes.get('/', (req, res) => res.json({ api: 'backend funcionando' }))
 
-routes.get('/tickets', TicketsController.index)
-routes.post('/tickets/save', TicketsController.store)
+routes.get('/users', UsersController.index)
+routes.post('/users/save', UsersController.store)
+// routes.post('/users/:id', UsersController.show)
 
 export default routes
