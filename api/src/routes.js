@@ -3,15 +3,16 @@ import { Router } from 'express'
 import UsersController from './app/controllers/UsersController'
 import ContactsController from './app/controllers/ContactsController'
 import RolesController from './app/controllers/RolesController'
+import UserRoleController from './app/controllers/UserRolesController'
 
 const routes = new Router()
 
 routes.get('/', (req, res) => res.json({ api: 'backend funcionando' }))
 
+routes.get('/users/:id/list', UsersController.show)
 routes.get('/users', UsersController.index)
 routes.post('/users/save', UsersController.store)
 routes.delete('/users/:user_id/destroy', UsersController.delete)
-// routes.post('/users/:id', UsersController.show)
 
 routes.get('/contacts/:user_id/list', ContactsController.show)
 routes.post('/contacts/:user_id/save', ContactsController.store)
@@ -22,5 +23,7 @@ routes.get('/roles/:user_id/list', RolesController.show)
 routes.post('/roles/save', RolesController.store)
 routes.put('/roles/:id/update', RolesController.update)
 routes.delete('/roles/:id/destroy', RolesController.delete)
+
+routes.post('/user/save', UserRoleController.store)
 
 export default routes

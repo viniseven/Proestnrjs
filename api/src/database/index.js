@@ -4,8 +4,9 @@ import dbConfig from '../config/database'
 import User from '../app/models/User'
 import Contact from '../app/models/Contact'
 import Role from '../app/models/Role'
+import User_role from '../app/models/user_role'
 
-const models = [User, Contact, Role]
+const models = [User, Contact, Role, User_role]
 
 class Database {
   constructor() {
@@ -17,7 +18,11 @@ class Database {
 
     models.map((model) => model.init(this.connection))
 
-    models.forEach((model) => model.associate(this.connection.models))
+    models.forEach((model) => {
+      if (model.associate) {
+        model.associate(this.connection.models)
+      }
+    })
   }
 }
 

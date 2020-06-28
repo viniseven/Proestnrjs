@@ -21,6 +21,18 @@ class UsersController {
     return res.json(users)
   }
 
+  async show(req, res) {
+    const { id } = req.params
+
+    const user = await User.findByPk(id)
+
+    if (!user) {
+      return res.json({ error: 'User not found!' })
+    }
+
+    return res.status(200).json(user)
+  }
+
   async store(req, res) {
     const user = await User.create(req.body)
 
