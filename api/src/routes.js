@@ -19,11 +19,11 @@ routes.post('/contacts/:user_id/save', ContactsController.store)
 routes.put('/contacts/:id/update', ContactsController.update)
 routes.delete('/contacts/:id/destroy', ContactsController.delete)
 
-routes.get('/roles/:user_id/list', RolesController.show)
+routes.get('/roles/:id/list', RolesController.show)
 routes.post('/roles/save', RolesController.store)
 routes.put('/roles/:id/update', RolesController.update)
 routes.delete('/roles/:id/destroy', RolesController.delete)
 
-routes.post('/user/save', UserRoleController.store)
+routes.post('/users-roles/save', UserRoleController.store)
 
 export default routes

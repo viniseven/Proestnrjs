@@ -3,12 +3,14 @@ import Role from '../models/Role'
 
 class RolesController {
   async show(req, res) {
-    const { user_id } = req.params
+    const { id } = req.params
 
     const roles = await Role.findAll({
-      where: { user_id },
-      attributes: ['number', 'user_id'],
+      where: { id },
+      attributes: ['name', 'description'],
     })
+
+    if (roles.length === 0) return res.status(400).json({ error: 'Role not has found' })
 
     return res.json({ success: true, roles })
   }
@@ -19,7 +21,7 @@ class RolesController {
     const roles = await Role.findOne({ where: { name } })
 
     if (roles) {
-      return res.status(400).json({ error: 'Role has find.' })
+      return res.status(400).json({ error: 'Role was found' })
     }
 
     const role = await Role.create({
@@ -47,12 +49,10 @@ class RolesController {
     const { id } = req.params
 
     const role = await Role.findByPk(id)
-    if (role) {
-      await role.destroy({ where: { id } })
-      return res.json({ success: 'Role has been Deleted.' })
-    }
+    if (!role) return res.status(400).json({ error: 'This role has not found' })
 
-    return res.status(400).json({})
+    await role.destroy({ where: { id } })
+    return res.json({ success: 'Role has been Deleted.' })
   }
 }
 

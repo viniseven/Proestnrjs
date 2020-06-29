@@ -7,7 +7,10 @@ class User_role extends Model {
         user_id: DataTypes.INTEGER,
         role_id: DataTypes.INTEGER,
       },
-      { sequelize }
+      {
+        sequelize,
+        tableName: 'user_role',
+      }
     )
   }
 }
