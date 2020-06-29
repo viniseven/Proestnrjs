@@ -7,11 +7,20 @@ class UserRoleController {
     const { user_id, role_id } = req.body
     console.log(user_id, role_id)
 
-    const user = await User.findByPk(user_id)
-    const role = await Role.findByPk(role_id)
+    const user = await User.findByPk(user_id, { attributes: ['id'] })
+    const role = await Role.findByPk(role_id, { attributes: ['id'] })
 
     if (!user || !role) {
       return res.status(400).json({ error: 'Role or User not found' })
+    }
+
+    const hasRelationship = await UserRole.findOne({
+      where: { user_id, role_id },
+      attributes: ['id'],
+    })
+
+    if (hasRelationship) {
+      return res.status(400).json({ error: 'This user already has this role' })
     }
 
     const userRole = await UserRole.create({
