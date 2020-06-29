@@ -1,10 +1,11 @@
-import UserRole from '../models/user_role'
+import UserRole from '../models/User_role'
 import Role from '../models/Role'
 import User from '../models/User'
 
 class UserRoleController {
   async store(req, res) {
     const { user_id, role_id } = req.body
+    console.log(user_id, role_id)
 
     const user = await User.findByPk(user_id)
     const role = await Role.findByPk(role_id)
@@ -19,6 +20,36 @@ class UserRoleController {
     })
 
     return res.json({ success: 'true', userRole })
+  }
+
+  async update(req, res) {
+    const { user_id, role_idCurrent } = req.params
+    const { role_id } = req.body
+
+    const user = await User.findByPk(user_id)
+    const role = await Role.findByPk(role_id)
+
+    if (!user || !role) {
+      return res.status(400).json({ error: 'Role or User not found' })
+    }
+
+    const id_userRole = await UserRole.findOne({
+      where: {
+        user_id,
+        role_id: role_idCurrent,
+      },
+    })
+
+    const updateRoleUser = await UserRole.update(
+      { role_id },
+      {
+        where: {
+          id: id_userRole,
+        },
+      }
+    )
+
+    return res.json({ success: true, updateRoleUser })
   }
 }
 

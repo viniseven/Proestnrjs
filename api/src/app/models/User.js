@@ -34,6 +34,7 @@ class User extends Model {
   // belong -> procura a coluna dentro de si mesmo ()
 
   static associate(models) {
+    this.hasMany(models.Project, { foreignKey: 'user_id', as: 'projects' })
     this.hasMany(models.Contact, { foreignKey: 'user_id', as: 'contacts' })
     this.belongsToMany(models.Role, {
       foreignKey: 'user_id',

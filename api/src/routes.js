@@ -4,6 +4,7 @@ import UsersController from './app/controllers/UsersController'
 import ContactsController from './app/controllers/ContactsController'
 import RolesController from './app/controllers/RolesController'
 import UserRoleController from './app/controllers/UserRolesController'
+import ProjectController from './app/controllers/ProjectsController'
 
 const routes = new Router()
 
@@ -25,5 +26,7 @@ routes.put('/roles/:id/update', RolesController.update)
 routes.delete('/roles/:id/destroy', RolesController.delete)
 
 routes.post('/user/save', UserRoleController.store)
+
+routes.post('/project/:user_id/save', ProjectController.store)
 
 export default routes

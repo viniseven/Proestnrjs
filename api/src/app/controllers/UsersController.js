@@ -9,6 +9,10 @@ class UsersController {
           attributes: ['number'],
         },
         {
+          association: 'projects',
+          attributes: ['subject', 'description'],
+        },
+        {
           association: 'roles',
           attributes: ['name', 'description'],
           through: { attributes: [] },
@@ -24,7 +28,19 @@ class UsersController {
   async show(req, res) {
     const { id } = req.params
 
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id, {
+      include: [
+        {
+          association: 'contacts',
+          attributes: ['number'],
+        },
+        {
+          association: 'roles',
+          attributes: ['name', 'description'],
+          through: { attributes: [] },
+        },
+      ],
+    })
 
     if (!user) {
       return res.json({ error: 'User not found!' })

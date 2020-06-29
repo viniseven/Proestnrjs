@@ -5,8 +5,10 @@ import User from '../app/models/User'
 import Contact from '../app/models/Contact'
 import Role from '../app/models/Role'
 import User_role from '../app/models/user_role'
+import Team from '../app/models/Team'
+import Project from '../app/models/Project'
 
-const models = [User, Contact, Role, User_role]
+const models = [User, Contact, Role, User_role, Team, Project]
 
 class Database {
   constructor() {
@@ -26,4 +28,4 @@ class Database {
   }
 }
 
-export default new Database().connection
+export default new Database()
